@@ -4,14 +4,16 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        int numberOfAttempts = 1000;
-        int arraySizes[] = { 100, 200, 500, 1000, 2500, 5000 };
-
-        for (int i : arraySizes) {
-
-            benchmarkSort(i, numberOfAttempts);
-            System.out.println(" ");
-        }
+        
+          int numberOfAttempts = 1000;
+          int arraySizes[] = { 100, 200, 500, 1000, 2500, 5000 };
+          
+          for (int i : arraySizes) {
+          
+          benchmarkSort(i, numberOfAttempts);
+          System.out.println(" ");
+          }
+         
 
     }
 
@@ -31,6 +33,8 @@ public class App {
             if (minimum > (t1 - t0)) {
                 minimum = (t1 - t0);
             }
+            arrayToBeSorted = createUnsortedArray(arraySize);
+
         }
 
         System.out.println("Selection Sort Size " + arraySize + " : " + (minimum) + " ns");
@@ -67,7 +71,6 @@ public class App {
 
     static public int[] createUnsortedArray(int arraySize) {
         int array[] = new int[arraySize];
-
         Random rnd = new Random();
 
         for (int i = 0; i < array.length; i++) {
@@ -102,7 +105,7 @@ public class App {
 
     static public int[] insertionSort(int[] array) {
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 1; i < array.length; i++) {
             for (int j = i; j > 0 && array[j] < array[j - 1]; j--) {
                 array = swap(array, j, j - 1);
             }
@@ -118,15 +121,19 @@ public class App {
     }
 
     // Läs på mer om merge sort, är förvirrande hur den ska fungera
-    static public void mergeSort(int[] array) {
-        if (array.length == 0)
-            return;
+    static public int[] mergeSort(int[] array) {
+        if (array.length == 1)
+            return array;
         int[] aux = new int[array.length];
         sort(array, aux, 0, array.length - 1);
+        return array;
     }
 
     private static void sort(int[] org, int[] aux, int lo, int hi) {
-        if (lo != hi) {
+        int length=hi-lo-1;
+        if (length < 0)
+            return;
+            
             int mid = (lo + hi) / 2;
             // sort the items from lo to mid
 
@@ -138,7 +145,7 @@ public class App {
 
             // merge the two sections using the additional array
             merge(org, aux, lo, mid, hi);
-        }
+        
     }
 
     private static void merge(int[] org, int[] aux, int lo, int mid, int hi) {
@@ -146,38 +153,36 @@ public class App {
         for (int i = lo; i <= hi; i++) {
             aux[i] = org[i];
         }
+
         // let's do the merging
-        int i = lo; // the index in the first part
-        int j = mid + 1; // the index in the second part
+        int firstArray = lo; // the index in the first part
+        int secondArray = mid+1; // the index in the second part
         // for all indices from lo to hi
-        for (int k = lo; k <= hi; k++) {
-            if (i > mid) {
-                org[k] = aux[j];
-                j++;
-            }
-            // if i is greater than mid then
-            // move the j'th item to the org array, update j
 
-            else if (j > hi) {
-                org[k] = aux[i];
-                i++;
-            }
-            // else if j is greater than hi then
-            // move the i'th item to the org array, update i
+        int k = lo;
 
-            else if (org[i] < aux[j]) {
-                org[k] = aux[i];
-                i++;
+        while (firstArray <= mid && secondArray <= hi) {
+            
+            if(aux[firstArray] < aux[secondArray]) {
+                org[k] = aux[firstArray];
+                firstArray++;
+                k++;
+            } else {
+                org[k] = aux[secondArray];
+                secondArray++;
+                k++;
             }
-            // else if the i'th item is smaller than the j¨ath item,
-            // move the i'th item to the org array, update i
 
-            else {
-                org[k] = aux[j];
-                j++;
-            }
-            // else
-            // move the j'th item to the org array, update j
+        }
+        while (firstArray <= mid) {
+            org[k] = aux[firstArray];
+            firstArray++;
+            k++;
+        }
+        while (secondArray <= hi) {
+            org[k] = aux[secondArray];
+            secondArray++;
+            k++;
         }
     }
 }
