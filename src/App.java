@@ -22,51 +22,46 @@ public class App {
         int arrayToBeSorted[] = createUnsortedArray(arraySize);
         long t0;
         long t1;
-        long minimum = Long.MAX_VALUE;
+        long minimum1 = Long.MAX_VALUE;
+        long minimum2 = Long.MAX_VALUE;
+        long minimum3 = Long.MAX_VALUE;
 
+        int[] temp;
         for (int i = 0; i < numberOfAttempts; i++) {
+            arrayToBeSorted = createUnsortedArray(arraySize);
 
+            temp=arrayToBeSorted.clone();
             t0 = System.nanoTime();
-            // printIntArray(selectionSort(arrayToBeSorted));
-            arrayToBeSorted=selectionSort(arrayToBeSorted);
+            selectionSort(temp);
             t1 = System.nanoTime();
-            if (minimum > (t1 - t0)) {
-                minimum = (t1 - t0);
+            if (minimum1 > (t1 - t0)) {
+                minimum1 = (t1 - t0);
             }
-            arrayToBeSorted = createUnsortedArray(arraySize);
 
-        }
 
-        System.out.println("Selection Sort Size " + arraySize + " : " + (minimum) + " ns");
-
-        minimum = Long.MAX_VALUE;
-
-        for (int i = 0; i < numberOfAttempts; i++) {
-
-            arrayToBeSorted = createUnsortedArray(arraySize);
+            temp=arrayToBeSorted.clone();
             t0 = System.nanoTime();
-            insertionSort(arrayToBeSorted);
+            insertionSort(temp);
             t1 = System.nanoTime();
-            if (minimum > (t1 - t0)) {
-                minimum = (t1 - t0);
-            }
-        }
-        System.out.println("Insertion Sort Size " + arraySize + " Minimum: " + (minimum) + " ns");
+            if (minimum2 > (t1 - t0)) {
+                minimum2 = (t1 - t0);
+            }            
 
-        minimum = Long.MAX_VALUE;
 
-        for (int i = 0; i < numberOfAttempts; i++) {
-
-            arrayToBeSorted = createUnsortedArray(arraySize);
+            temp=arrayToBeSorted.clone();
             t0 = System.nanoTime();
-            mergeSort(arrayToBeSorted);
+            mergeSort(temp);
             t1 = System.nanoTime();
-            if (minimum > (t1 - t0)) {
-                minimum = (t1 - t0);
+            if (minimum3 > (t1 - t0)) {
+                minimum3 = (t1 - t0);
             }
         }
 
-        System.out.println("Merge Sort Size " + arraySize + " : " + (minimum) + " ns");
+        System.out.println("Selection Sort Size " + arraySize + " : " + (minimum1) + " ns");
+
+        System.out.println("Insertion Sort Size " + arraySize + " Minimum: " + (minimum2) + " ns");
+
+        System.out.println("Merge Sort Size " + arraySize + " : " + (minimum3) + " ns");
     }
 
     static public int[] createUnsortedArray(int arraySize) {
