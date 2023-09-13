@@ -28,7 +28,7 @@ public class App {
 
             t0 = System.nanoTime();
             // printIntArray(selectionSort(arrayToBeSorted));
-            selectionSort(arrayToBeSorted);
+            arrayToBeSorted=selectionSort(arrayToBeSorted);
             t1 = System.nanoTime();
             if (minimum > (t1 - t0)) {
                 minimum = (t1 - t0);
