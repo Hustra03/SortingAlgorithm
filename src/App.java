@@ -118,7 +118,7 @@ public class App {
     // Läs på mer om merge sort, är förvirrande hur den ska fungera
     static public int[] mergeSort(int[] array) {
         if (array.length == 1)
-            return array;
+            {return array;}
         int[] aux = new int[array.length];
         sort(array, aux, 0, array.length - 1);
         return array;
@@ -127,19 +127,12 @@ public class App {
     private static void sort(int[] org, int[] aux, int lo, int hi) {
         int length=hi-lo-1;
         if (length < 0)
-            return;
+            {return;}
             
-            int mid = (lo + hi) / 2;
-            // sort the items from lo to mid
-
-            sort(org, aux, lo, mid);
-
-            // sort the items from mid+1 to hi
-
-            sort(org, aux, mid + 1, hi);
-
-            // merge the two sections using the additional array
-            merge(org, aux, lo, mid, hi);
+        int mid = (lo + hi) / 2;
+        sort(org, aux, lo, mid);// sort the items from lo to mid
+        sort(org, aux, mid + 1, hi);// sort the items from mid+1 to hi
+        merge(org, aux, lo, mid, hi);// merge the two sections using the additional array
         
     }
 
@@ -161,8 +154,8 @@ public class App {
             if(aux[firstArray] < aux[secondArray]) {
                 org[k] = aux[firstArray];
                 firstArray++;
-                k++;
-            } else {
+                k++;} 
+            else {
                 org[k] = aux[secondArray];
                 secondArray++;
                 k++;
@@ -174,10 +167,12 @@ public class App {
             firstArray++;
             k++;
         }
+        
         while (secondArray <= hi) {
             org[k] = aux[secondArray];
             secondArray++;
             k++;
         }
+        
     }
 }
