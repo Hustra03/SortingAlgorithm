@@ -9,12 +9,12 @@ public class App {
           int arraySizes[] = { 100, 200, 500, 1000, 2500, 5000 };
           
           for (int i : arraySizes) {
+          for (int j = 0; j < 5; j++) {
+            
           
           benchmarkSort(i, numberOfAttempts);
-          System.out.println(" ");
+          System.out.println(" ");}
           }
-         
-
     }
 
     static public void benchmarkSort(int arraySize, int numberOfAttempts) {
